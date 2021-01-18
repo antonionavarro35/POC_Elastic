@@ -1,0 +1,174 @@
+PUT books
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "spanish_stop": {
+          "type": "stop",
+          "stopwords": "_spanish_"
+        },
+        "spanish_stemmer": {
+          "type": "stemmer",
+          "language": "light_spanish"
+        }
+      },
+      "analyzer": {
+        "rebuilt_spanish": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "spanish_stop",
+            "spanish_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "anyo": {
+        "type": "short"
+      },
+      "cont-orden": {
+        "type": "integer"
+      },
+      "cont_autor": {
+        "type": "keyword",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 128
+          }
+        }
+      },
+      "cont_contenido": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 8191
+          }
+        }
+      },
+      "cont_estado": {
+        "type": "integer"
+      },
+      "cont_idioma_original": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 128
+          }
+        }
+      },
+      "cont_nombre": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 128
+          }
+        }
+      },
+      "cont_ts": {
+        "type": "text"
+      },
+      "estado": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 128
+          }
+        }
+      },
+      "id": {
+        "type": "short"
+      },
+      "id_1": {
+        "type": "short"
+      },
+      "id_2": {
+        "type": "short"
+      },
+      "id_numero": {
+        "type": "short"
+      },
+      "id_publi": {
+        "type": "short"
+      },
+      "id_publi_1": {
+        "type": "short"
+      },
+      "id_publi_2": {
+        "type": "short"
+      },
+      "idnivel1": {
+        "type": "short"
+      },
+      "idnivel2": {
+        "type": "short"
+      },
+      "idnivel3": {
+        "type": "short"
+      },
+      "nombre": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "nombre_largo": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "palabra": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+             "ignore_above": 8191
+          }
+        }
+      },
+      "tipo": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 128
+          }
+        }
+      },
+      "titulo": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "ts": {
+        "type": "text"
+      }
+    }
+  }
+}
+
+
+POST _reindex
+{
+  "source": {
+    "index": "prueba4"
+  },
+  "dest": {
+    "index": "books"
+  }
+}

@@ -1,0 +1,32 @@
+#Run Elastic
+bin\elasticsearch.bat
+
+#Ver si contesta
+curl http://localhost:9200/
+
+
+Run Kibana
+bin\Kibana.bat
+
+localhost:5601
+
+#####################################################
+Creando Indices con esquema.
+
+PUT /reviews
+{
+  "mappings": {
+    "properties": {
+      "rating": {"type": "float"},
+      "content": {"type": "text"},
+      "product_id": {"type": "integer"},
+      "author": {
+        "properties": {
+          "firt_name": {"type": "text"},
+          "last_name": {"type": "text"},
+          "email": {"type": "keyword"}
+        }
+      }
+    }
+  }
+}
